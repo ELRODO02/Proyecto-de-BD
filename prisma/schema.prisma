@@ -1,0 +1,107 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URL")
+}
+
+model Direccion {
+  id_dir       Int    @id @default(autoincrement())
+  calle        String
+  numero       String
+  colonia      String
+  codigoPostal Int
+
+  informacionPersonal InformacionPersonal? @relation("DireccionRelation")
+}
+
+model InformacionPersonal {
+  id_info_per Int    @id @default(autoincrement())
+  nombres     String
+  apellidos   String
+  telefono    String
+  email       String
+  direccionId Int    @unique
+
+  direccion Direccion  @relation("DireccionRelation", fields: [direccionId], references: [id_dir])
+  Cliente   Cliente?   @relation("ClienteRelation")
+  Proveedor Proveedor? @relation("ProvedorRelation")
+  Empleado  Empleado?  @relation("EmpleadoRelation")
+}
+
+model Cliente {
+  id_cliente     Int      @id @default(autoincrement())
+  infoPersonalId Int      @unique
+  fechaRegistro  DateTime
+  observaciones  String
+
+  Pedido              Pedido[]
+  informacionPersonal InformacionPersonal @relation("ClienteRelation", fields: [infoPersonalId], references: [id_info_per])
+}
+
+model Empleado {
+  id_empleado    Int      @id @default(autoincrement())
+  infoPersonalId Int      @unique
+  fechaRegistro  DateTime
+  observaciones  String
+
+  infoPersonal InformacionPersonal @relation("EmpleadoRelation", fields: [infoPersonalId], references: [id_info_per])
+}
+
+model Producto {
+  id_producto Int    @id @default(autoincrement())
+  nombre      String
+  precio      Float
+  descripcion String
+
+  Inventario Inventario[]
+  Pedido     Pedido[]
+  Proveedor  Proveedor[]
+}
+
+model Proveedor {
+  id_provedor    Int      @id @default(autoincrement())
+  infoPersonalId Int      @unique
+  fechaRegistro  DateTime
+  observaciones  String
+
+  Producto     Producto[]
+  infoPersonal InformacionPersonal @relation("ProvedorRelation", fields: [infoPersonalId], references: [id_info_per])
+}
+
+model Inventario {
+  id_inventario Int      @id @default(autoincrement())
+  productoId    Int
+  cantidad      Int
+  fecha         DateTime
+  producto      Producto @relation(fields: [productoId], references: [id_producto])
+}
+
+model Pedido {
+  id_pedido Int      @id @default(autoincrement())
+  fecha     DateTime
+  clienteId Int
+  cantidad  Int
+  total     Float
+
+  Devolucion Devolucion[]
+  Producto   Producto[]
+  Cliente    Cliente      @relation(fields: [clienteId], references: [id_cliente])
+}
+
+model Devolucion {
+  id_devolucion Int      @id @default(autoincrement())
+  fecha         DateTime
+  cantidad      Int
+  observaciones String
+  pedidoId      Int
+  Pedido        Pedido   @relation(fields: [pedidoId], references: [id_pedido])
+}

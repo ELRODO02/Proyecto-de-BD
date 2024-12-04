@@ -1,0 +1,133 @@
+post
+http://localhost:3000/cliente
+
+{
+  "client": {
+    "nombres": "Juanito",
+    "apellidos": "Carlos",
+    "telefono": "4622088663",
+    "email": "juan.perez@example.com",
+    "direccion": {
+      "calle": "Calle Principal",
+      "numero": "2",
+      "colonia": "Centro",
+      "cp": 36855
+    },
+    "fecha_registro": "2024-12-01T10:00:00Z",
+    "observaciones": "Cliente frecuente"
+  }
+}
+
+get
+http://localhost:3000/cliente/1
+
+delete
+http://localhost:3000/cliente/1
+
+put
+http://localhost:3000/cliente/1
+{
+  "client": {
+    "nombres": "Juanito",
+    "apellidos": "Carlos",
+    "telefono": "4622088663",
+    "email": "juan.perez@example.com",
+    "direccion": {
+      "calle": "Calle Principal",
+      "numero": "2",
+      "colonia": "Centro",
+      "cp": 36855
+    },
+    "fecha_registro": "2024-12-01T10:00:00Z",
+    "observaciones": "Cliente frecuente"
+  }
+}
+
+post
+http://localhost:3000/empleado
+{
+  "empleado": {
+    "nombres": "Paco",
+    "apellidos": "Carlos",
+    "telefono": "4621588663",
+    "email": "juan.pez@example.com",
+    "direccion": {
+      "calle": "20 de noviembre",
+      "numero": "8",
+      "colonia": "Centro",
+      "cp": 36855
+    },
+    "fecha_registro": "2024-12-01T10:00:00Z",
+    "observaciones": "Cliente frecuente"
+  }
+}
+
+get
+http://localhost:3000/empleado/1   o id
+
+put
+http://localhost:3000/empleado
+
+{
+  "empleado": {
+    "nombres": "Paco",
+    "apellidos": "Carlos",
+    "telefono": "4621588663",
+    "email": "juan.pez@example.com",
+    "direccion": {
+      "calle": "20 de noviembre",
+      "numero": "8",
+      "colonia": "Centro",
+      "cp": 36855
+    },
+    "fecha_registro": "2024-12-01T10:00:00Z",
+    "observaciones": "Cliente frecuente"
+  }
+}
+
+delete
+http://localhost:3000/empleado/1
+
+
+post
+http://localhost:3000/producto
+{
+    "nombre": "Mouse inalámbrico",
+    "descripcion": "Mouse ergonómico",
+    "precio": 20.00
+}
+
+get
+http://localhost:3000/producto/1
+
+put
+http://localhost:3000/producto/1
+{
+    "nombre": "Mouse inalámbrico",
+    "descripcion": "Mouse ergonómico",
+    "precio": 20.00
+}
+
+delete
+http://localhost:3000/producto/1
+
+post 
+
+http://localhost:3000/inventario
+{
+    "producto_id": 1,
+    "cantidad": 10
+}
+
+get
+http://localhost:3000/inventario/1
+
+put
+http://localhost:3000/inventario/1
+{
+    "producto_id": 1,
+    "cantidad": 10
+}
+
+delete
+http://localhost:3000/inventario/1
